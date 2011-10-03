@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>024</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "023" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "025" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>
+
+
+
+     # JSON Pegex Grammar
+     
+     json: &lt;map&gt; | &lt;seq&gt;
+     node: &lt;map&gt; | &lt;seq&gt; | &lt;scalar&gt;
+     map: /~&lt;LCURLY&gt;~/ &lt;pair&gt;? ** /~&lt;COMMA&gt;~/ /~&lt;RCURLY&gt;~/
+     pair: &lt;string&gt; /~&lt;COLON&gt;~/ &lt;node&gt;
+     seq: /~&lt;LSQUARE&gt;~/ &lt;node&gt;? ** /~&lt;COMMA&gt;~/ /~&lt;RSQUARE&gt;~/
+     scalar: &lt;string&gt; | &lt;number&gt; | &lt;boolean&gt; | &lt;null&gt;
+     string: /&lt;DOUBLE&gt;((?:&lt;BACK&gt;&lt;BACK&gt;|&lt;BACK&gt;&lt;DOUBLE&gt;|[^&lt;DOUBLE&gt;&lt;BREAK&gt;])*)&lt;DOUBLE&gt;/
+     number: /(&lt;DIGIT&gt;+(?:&lt;DOT&gt;&lt;DIGIT&gt;*)?|&lt;DOT&gt;&lt;DIGIT&gt;+)/
+     boolean: &lt;true&gt; | &lt;false&gt;
+     true: /true/
+     false: /false/
+     null: /null/
+
+
+
+
+
+
+
+</pre>
+</body>
