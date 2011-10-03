@@ -1,0 +1,580 @@
+---- config
+title: The State of the Acmeism
+indent: 5
+height: 25
+width: 72
+skip: 0
+
+---- center
+The State of the Acmeism
+
+by Ingy döt Net
+
+OSDC Paris
+
+Friday, September 23, 2011
+
+----
+== The *State* of Acmeism
+
+* Acmeism currently wants:
+  * C'Dent, TestML, Pegex, Stardoc
+* Pegex.pm is now 1.0 (0.17)
+* Pegex tests are all TestML
+* TestML is all Pegex
+* Pegex.py is in 1 week
+* Pegex.coffee is progress
+* C'Dent compiles 3 to 17 langs
+* C'Dent is all Pegex in 2 weeks
+  * OSDC.fr (origin of Acmeism)
+* Stardoc will begin with Pegex
+* Pegex will be written in C'Dent
+
+----
+== Ingy döt Net
+
+* Oui Code Software (for you!)
+  * http://ouicode.com
+
+* ActiveState
+  * http://activestate.com/
+  * Enterprise Acmeism
+    * Perl, Python, Tcl, Ruby, PHP, Java, Erlang, Scala :)
+  * Stackato
+    * Acmeism in the Cloud
+    * See my talk tomorrow
+
+----
+== Ingy döt Net
+
+* Inventor of YAML
+* 100+ Perl modules on CPAN
+* More GitHub repos than anyone...
++  * In Seattle :)
+
++* Several JavaScript modules on JSAN
+* Several Python modules on PyPi
+* Even some Bash modules
+* No Ruby modules...
++  ...YET!!!
+
+----
+== WTF is Acmeism?
+
+A) 1910-1912 Russian Poetry Movement?
+B) The Religion of Silly Perl Modules?
+3) The Love of Orange?
+D) All/None of the Above
+
++    http://acmeism.org
+
+Acmeism is the belief that language naturally
+tends to divide people and ideas, but that
+technology can overcome this tendency.
+
+People who create technology that is not limited
+to a particular language are known as Acmeists.
+
+----
+== Acmeism
+
+Acmeism is about doing things that help
+all programming languages at once.
+
+C++ & Clojure & Erlang & CoffeeScript & Go &
+Java & JavaScript & Perl & PHP & Python &
+Ruby & Scala & Tcl & ...
+
+    http://rosettacode.org
+
+A Code Wiki - 402 Languages x 560 Problems
+
+----
+== OSDC
+
+* OSDC(OWF) is the ultimate Acmeism Conference
+  
+* Paris is the birthplace of Acmeism
+
+* First talk about Acmeism -> OSDC Paris 2009
+
+----
+== What Acmeism == && !=
+
+* Acmeism == Everyone Hacking Together
+  * Regardless of Language
+* Acmeism != Converting to your language
+
+* Acmeism == Sharing Great Ideas
+* Acmeism != Stealing Great Ideas...
++  * Unless you give them back!
+
+----
+== Whence Acmeism?
+
+I have ported a lot of code:
+
+* Perl to JavaScript   (Jemplate)
+* JavaScript to Perl   (pQuery)
+* Python to Perl       (PyYaml)
+* Perl to Python       (TestML)
+
+----
+== All Languages Are The Same
+
+* Line for line. Idiom for idiom.
+* Languages let people tell computers what to do.
+* All OO languages have a common set of components.
+
+----
+== Don't believe me?
+
+Look at this...
+
+---- include yaml-examples
+
+----
+== Modules are Everything
+
+* Modules are the key to (Post)Modern Programming
+* They encapsulate ideas
+* All languages have the same need of modules
+
+My focus for Acmeism is to make ideas (modules)
+sharable across languages and communities.
+
+----
+== My Goal as an Acmeist Developer
+
+* I Want to Release a Module
++* In 12 different languages
+  * CPAN, PyPI, RubyGems, JSAN, 6PAN, Hackage,
+    npm, PEAR, Maven, CEAN, BPAN, etc
++* At Once!
++* Every Day!
+
++* I would like to have 1000 modules in every language!
+
+----
+== How Can I Do That?
+
+* Pegex    - Acmeist PEG Parser
+* C'Dent   - Acmeist Programming Language
+* TestML   - Acmeist Unit Test Framework
+* Stardoc  - Acmeist Documentation
+
+----
+== The Ingy Module Challenge
+
+* If you never published a module...
++  * Publish a module this year!
+
++* If you have never published in another language...
++  * Publish a module in a new language this year!
+
++* If you've never published a module
+  in six impossible languages...
+  every day...
+  before breakfast...
++  * Watch the rest of this talk!!!
+
+----
+== Pegex - Portable Parsing from the Future
+
+* To Build New Things in Every Language
+  An Acmeist Parser is Very Helpful
+
+* Pegex is The Acmeist Parser/Grammar
+  * Write Once, Parse Everywhere
+
+* Pegex == PEG + Regex
+  * Parsing Expression Grammars
+  * Regular Expressions
+
+* Pegex is the Kernel of Acmeism
+
+----
+== Pegex - Portable Parsing from the Future
+
+* The best part of Perl 6 is Rules
+  * PEG Parsing Made Simple
+  * And verrrry sloooow... :)
+
+* Pegex is a pragmatic approach
+  * Perl 6 Ease of Use
+  * Using PCRE compat regex engines
+  * Possibly other regex engines
+
+* Regex is ubiquitous
+  * Will work almost anywhere
+  * And fast
+
+----
+== Some JSON for You
+
+    {
+        "name": "Homer Simpson",
+        "cartoon": true,
+        "age": 42,
+        "food": [
+            "donut", "donut", "donut"
+        ],
+        "family": {
+            "wife": "Marge",
+            "son": "Bart"
+        }
+    } 
+
+----
+# JSON Pegex Grammar
+
+json: <map> | <seq>
+node: <map> | <seq> | <scalar>
+map: /~<LCURLY>~/ <pair>? ** /~<COMMA>~/ /~<RCURLY>~/
+pair: <string> /~<COLON>~/ <node>
+seq: /~<LSQUARE>~/ <node>? ** /~<COMMA>~/ /~<RSQUARE>~/
+scalar: <string> | <number> | <boolean> | <null>
+string: /<DOUBLE>((?:<BACK><BACK>|<BACK><DOUBLE>|[^<DOUBLE><BREAK>])*)<DOUBLE>/
+number: /(<DIGIT>+(?:<DOT><DIGIT>*)?|<DOT><DIGIT>+)/
+boolean: <true> | <false>
+true: /true/
+false: /false/
+null: /null/
+
+----
+
+== How Pegex Works
+
+    # Example usage in Python
+    from pegex import Grammar
+
+    data_tree =
+        Grammar(text=grammar_text, receiver=AST).parse(input)
+
+
+---- i0
+                            Parsing a language called "Foo"
+                               with the Pegex toolset.    
+
+                              .-----------------------.
+  .--------------------.      |    Pegex::Compiler    |
+  |    Foo Language    |      |-----------------------|    Serialize
+  |--------------------|----->| Pegex::Grammar::Pegex |---------.
+  | Pegex grammar text |      | Pegex::Receiver       |         |
+  '--------------------'      '-----------------------'         v
+  ......................                  |                 .------.
+  |                    |                  | compile()       | YAML |
+  |foo:: <verb> <noun> |                  v                 '------'
+  |verb: /Hello/       |       .--------------------.       .------.
+  |noun: /world/       |       | Foo grammar tree   |       | JSON |
+  |                    |       '--------------------'       '------'
+  ......................                  |                 .------.
+                                          |                 | Perl |
+                                          v                 '------'
+                               .---------------------.      .--------.
+                               | Pegex::Grammar::Foo |      | Python |
+                               |---------------------|      '--------'
+                               | Pegex::Parser       |      .-----.
+                               | Pegex::AST::Foo     |      | etc |
+   .-----------------.         '---------------------'      '-----'
+   |  Foo Language   |                    |
+   |-----------------|------------------->| parse()
+   | Foo source text |                    v
+   '-----------------'        .----------------------.
+   ...................        | Parsed Foo Data Tree |
+   |Hello world      |        '----------------------'
+   ...................        ........................
+                              |- verb: Hello         |
+                              |- noun: world         |
+                              ........................
+----
+== Pegex Live Demo
+
+* Show Pegex::JSON implementation
+* pegex-pgx/pegex.pgx
+* perl -MXXX -MPegex -e 'XXX pegex("pegex.pgx")->parse("pegex.pgx")'
+
+----
+== Pegex Use Cases
+
+* Simple Way to Define Acmeist Languages and DSLs
+* Like C'Dent and TestML and Stardoc
+* YAML, JSON, and JSYNC
+
+----
+== What is New for Pegex?
+
+* Pegex.pm v0.17
+* Pegex is Self-hosting!!
+* Default ASTs
+* Proper Receiver API
+
+----
+== What is Next for Pegex?
+
+* Port it Everywhere
+  * Python, Ruby, CoffeeScript...
+
+* A TestML test suite for Pegex
+  * pegex-tml
+  
+* Grammars for Everything
+  * Perl6, Kwim, YAML, crontab
+
+* Receivers for Everything
+  * Roundtrip everything
+
+* Implement Pegex in C'Dent
+  * Receivers in C'Dent
+
+----
+== C'Dent
+
+* C'Dent == H.O.P.E
++  * Hack Once, Please Everyone
+
+* A new programming language
+* Built from old ones
+
+* C'Dent is for writing Portable Modules
+
+----
+== C'Dent Syntaxen
+
+C'Dent lets you write modules in:
+
+* Perl 6
+* Python
+* JavaScript
+
++Very strict subsets of these...
+
+----
+== C'Dent Runtimes
+
+C'Dent lets you compile modules to:
+
+* Perl 6
+* Python
+* JavaScript
+
++* Also:
+  Perl 5, Python 3, Ruby, PHP, Java
+  Scala, Go, ActionScript, PIR, NQP, pyc
+  and C'Dent (YAML)
+
+----
+== C'Dent Live Demo Time!
+
+* > cdent --help
+* Show Python Code
+* Show Error Reporting
+
+----
+== Who is C'Dent?
+
+* C'Dent was named after my friend, Chris Dent
+* aka cdent
+
+* I bought cdent.org in February 2007
+* I attended his wedding in the UK last month
+  * That's why I am here today!
+
+* C'Dent also means:
+
+      Common'DEnomiNaTor
+
+* It finds the common, useful subset
+
+----
+== How C'Dent compilation works (Overview)
+
+* Parse - Source to AST
+
+* Analyze - Detect and Validate types
+
+    ( .cd AST form )
+
+* Emit - Create language specific modules
+
+----
+== C'Dent Implementation
+
+* C'Dent is currently a Python implementation
+
+* I chose Python because it has the best YAML support
+  * I can use TAGs properly!
+
+* Python is also a pretty good language
+* I find it very TMTOWTDI :)
+
+----
+== C'Dent is Statically Typed!!
+
+* OSDC Langs are dynamically, and often weakly, typed
+* AST needs exact types to generate code
+* Simple example:
+
+   if str == 'foo' or num == 42:
+   if ($str eq 'foo' or $num == 42) {
+
+* C'Dent scans the AST and assigns a type to every object
+* If it can't find the type or finds a mismatch...
+  ... it's a *compile-time* error.
+
+* At runtime there is no extra type checking
+
+----
+== C'Dent Design Goals
+
+* Find a usable OO subset
+* Reuse when possible
+  * Runtime when not possible
+* Make Foo.cd.* modules actually work.
+* Make Foo.* modules nice to read.
+* Don't use more runtime than you need.
+
+----
+== C - The Ultimate Backend
+
+* If C'Dent can compile to C
+* We get fast modules for free
+* Python -> C + SWIG -> Python
+* People will target C'Dent for easy speed
+* And Everyone (Ruby, Perl, etc) will WIN!
+
+----
+== What is Next For C'Dent?
+
+* Switch to Pegex
+* Currently only support Hello World
+  * Add variables
+  * Loops and Conditionals
+  * Methods and Calling
+  * Exceptions
+* Release an Actual Module
++* In 12 Languages!
++* At Once!
+
+----
+== TestML - Portable Unit Tests
+
+* Think about YAML or JSON
+* Very Acmeist Modules
+* What if they all passed the exact same tests?
+
+----
+# Simple Example (3 Tests)
+
+%TestML: 1.0
+
+*mixed.uppercase() == *upper;
+*mixed.lowercase() == *lower;
+
+=== Test mixed case string
+--- mixed: I Like Pie
+--- upper: I LIKE PIE
+--- lower: i like pie
+
+=== Test lower case string
+--- mixed: I Love Lucy
+--- upper: I LOVE LUCY
+
+----
+# Example TestML for C'Dent
+
+%TestML: 1.0
+
+*cd_py.compile('rb') == *rb;
+*cd_py.compile('js') == *js;
+
+=== Hello, world
+--- cd_py
+class World:
+    def greet(self):
+        print "Hello, world\n",
+--- rb
+class World
+    def greet
+        puts("Hello, world\n")
+        return
+    end
+end
+--- js
+(this.World = function() {}).prototype = {
+    greet: function() {
+        print("Hello, world");
+    }
+};
+
+----
+== TestML is Framework Agnostic
+
+* Adapts to any Test Framwork/Harness
+  * Perl -> TAP
+  * Python -> unittest, py.test, nose
+* Mixes well with language specific tests
+
+----
+== TestML Live Demo
+
+* Pegex.pm
+* TestML.pm
+
+----
+== What is Next for TestML?
+
+* Common test suite for TestML
+* Port it to every language
+  * And every framework
+* Pegex based
+  * Perl 5 - TestML.pm already is Pegex
+
+----
+== Stardoc
+
+* Acmeist Packages should share Code, Tests, Doc
+  * C'Dent is Code
+  * TestML is Tests
+  * Stardoc is Doc
+
+* StarDoc is like C'Dent for Doc
+  * Write doc your way
+  * Publish it every other way
+    * Pod, ReST, Markdown, Kwim, etc
+
+----
+== Stardoc
+* Roundtripping is key
+* Built on WikiText.pm concepts
+* Perldoc.pm 
+* Perldoc 6
+
+----
+== Kwim
+
+* Based on ST
+* Wikiwyg Model (gmail)
+* Soon be a gollum language for Github
+
+----
+== What is Next for Stardoc?
+
+* Everything :)
+
+* Define Pegex Parsers/Emitters
+
+----
+== What is Next for Acmeism?
+
+* You Tell Me!
+* Acmeism Needs You!
+* Question/Answer/Discussion
+* Lower your Ingy-Number
+
+---- center
+The End
+
+http://acmeism.org
+
+http://ingydotnet.github.com/acmeism-osdcfr2011-talk/
